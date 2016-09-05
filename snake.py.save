@@ -1,0 +1,82 @@
+import pygame
+from random import choice
+window = pygame.display.set_mode((400,400))
+pygame.display.set_caption("hello pygame")
+
+screen = pygame.Surface((400, 400))
+
+###Class For Target
+class Sprite:
+	def __init__(self, xpos, ypos, filename):
+		self.x = xpos
+		self.y = ypos
+		self.bitmap = pygame.image.load(filename)
+		self.bitmap.set_colorkey((0,0,0))
+	def render(self):
+		screen.blit(self.bitmap, (self.x, self.y))
+
+class Snake:
+	def __init__(self, xpos, ypos, filename):
+		self.x = xpos
+		self.y = ypos
+		self.bitmap = pygame.image.load(filename)
+		self.bitmap.set_colorkey((0,0,0))
+		self.tail = list()
+		self.side = 1
+		self.len = 0
+	def render(self):
+		screen.blit(self.bitmap, (self.x, self.y))
+		if self.tail:
+			for each in self.tail:
+				each.render()
+	def check(self, other):
+		if self.x == other.x and self.y == other.y:
+			return True
+		if self.tail:
+			for each in self.tail:
+				if each.x == other.x and each.y == other.y:
+					return True
+	def update(self):
+		if self.side == 1:
+			self.x += 40
+		elif self.side == 2:
+			self.y += 40
+		elif self.side == 3:
+			self.x -= 40
+		elif self.side == 4:
+			self.y -= 40
+	def correct(self):
+		if self.x > 400-40: self.x = 0
+		elif self.y > 400-40: self.y = 0
+		elif self.x < 0: self.x = 400 -40
+		elif self.y < 0: self.y = 400 - 40
+	def move(self):
+		self.update()
+		self.correct()
+
+
+
+coords = range(0,400-40, 40)
+hero = Snake(choice(coords), choice(coords), 'zet.png')
+zet = Sprite(choice(coords), choice(coords), 'hero.png')
+
+
+
+done = True
+while done:
+	for e in pygame.event.get():
+		if e.type == pygame.QUIT:
+			done = False
+		if e.type == pygame.KEYDOWN:
+			if e.key == pygame.K_RIGHT: hero.side = 1
+			elif e.key == pygame.K_DOWN: hero.side =2
+			elif e.key == pygame.K_LEFT: hero.side =3
+			elif e.key == pygame.K_UP: hero.side = 4
+
+	screen.fill((50,50,50))
+	zet.render()
+	hero.move()
+	hero.render()
+	window.blit(screen, (0,0))
+	pygame.display.flip()
+	pygame.time.delay(300)
