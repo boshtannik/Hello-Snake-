@@ -19,12 +19,12 @@ class Sprite:
 ##Class for snake palyer
 class Snake:
 	def __init__(self, xpos, ypos, filename):
-		#setting the positions on coordinate grid
+		#set the positions on coordinate grid
 		self.x = xpos
 		self.y = ypos
-		#loading the textures
+		#load the textures
 		self.bitmap = pygame.image.load(filename)
-		#making the textures transparent
+		#make the textures transparent
 		self.bitmap.set_colorkey((0,0,0))
 		#this list will contain the tail objects (cubics) after hero eat some target
 		self.tail = list()
@@ -36,7 +36,7 @@ class Snake:
 	def render(self):
 		#This method will draw the Snake texture on Screen surface
 		screen.blit(self.bitmap, (self.x, self.y))
-		#if snake have the tail: each object of tail will be drawen too
+		#if snake have the tail: each object of tail must to be drawen too
 		if self.tail:
 			for each in self.tail[1:]:
 				each.render()
@@ -50,7 +50,7 @@ class Snake:
 				if each.x == other.x and each.y == other.y:
 					return True
 	def update(self):
-		#CEverytime of calling of this method will make snake move in direction Self.Side
+		#Everytime of calling of this method will make snake move in direction Self.Side
 		if self.side[-1] == 1:
 			self.x += 40
 		elif self.side[-1] == 2:
