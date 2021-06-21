@@ -2,7 +2,7 @@
 import pygame
 
 from config import SIZE, WINDOW_NAME, CELL_SIZE
-from sprite import Sprite
+from food import Food
 from snake import Snake, Side
 from random import choice
 
@@ -14,7 +14,7 @@ screen = pygame.Surface((SIZE, SIZE))
 
 coordinates = range(0, SIZE - CELL_SIZE, CELL_SIZE)
 hero = Snake(choice(coordinates), choice(coordinates), 'zet.png')
-zet = Sprite(choice(coordinates), choice(coordinates), 'hero.png')
+zet = Food(choice(coordinates), choice(coordinates), 'hero.png')
 
 done = True
 while done:
