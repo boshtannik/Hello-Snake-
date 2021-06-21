@@ -1,13 +1,4 @@
-import enum
-
 import pygame
-
-
-class Side(enum.Enum):
-    RIGHT = 0
-    DOWN = 1
-    LEFT = 2
-    UP = 3
 
 
 class Sprite:
@@ -19,4 +10,3 @@ class Sprite:
 
     def render(self, surface_to_render):
         surface_to_render.blit(self.bitmap, (self.x, self.y))
-
