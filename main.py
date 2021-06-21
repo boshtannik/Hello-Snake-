@@ -47,7 +47,7 @@ class Snake:
             for each_cell in self.tail[1:]:
                 each_cell.render()
 
-    def turn_to(self, got_side: int):
+    def turn_to(self, got_side: Side):
         self.side.append(got_side)
 
     def check_collision(self, other):
@@ -84,7 +84,8 @@ class Snake:
         self.update()
         self.correct()
         self.tail.insert(0, Sprite(self.x, self.y, 'zet.png'))
-        while len(self.tail) > self.length: self.tail.pop()
+        while len(self.tail) > self.length:
+            self.tail.pop()
         count = 0
         for each_cell in self.tail:
             count += 1
