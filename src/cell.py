@@ -1,5 +1,5 @@
-from game_object_type import GameObjectType
-from sprite import Sprite
+from src.game_object_type import GameObjectType
+from src.sprite import Sprite
 
 
 class Cell(Sprite):

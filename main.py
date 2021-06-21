@@ -2,8 +2,8 @@
 import pygame
 
 from config import SIZE, WINDOW_NAME, CELL_SIZE
-from food import Food
-from snake import Snake, Side
+from src.food import Food
+from src.snake import Snake, Side
 from random import choice
 
 window = pygame.display.set_mode((SIZE, SIZE))
@@ -13,8 +13,8 @@ screen = pygame.Surface((SIZE, SIZE))
 
 
 coordinates = range(0, SIZE - CELL_SIZE, CELL_SIZE)
-hero = Snake(choice(coordinates), choice(coordinates), 'zet.png')
-zet = Food(choice(coordinates), choice(coordinates), 'hero.png')
+hero = Snake(choice(coordinates), choice(coordinates))
+zet = Food(choice(coordinates), choice(coordinates))
 
 done = True
 while done:

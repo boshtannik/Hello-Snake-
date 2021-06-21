@@ -2,7 +2,7 @@ from abc import ABC
 
 import pygame
 
-from game_object_type import GameObjectType
+from src.game_object_type import GameObjectType
 
 
 class Sprite(ABC):

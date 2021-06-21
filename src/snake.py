@@ -3,7 +3,7 @@ from typing import List
 
 import pygame
 
-from cell import Cell
+from src.cell import Cell
 from config import CELL_SIZE, SIZE
 
 
@@ -15,10 +15,10 @@ class Side(enum.Enum):
 
 
 class Snake:
-    def __init__(self, x_pos, y_pos, filename):
+    def __init__(self, x_pos, y_pos):
         self.x = x_pos
         self.y = y_pos
-        self.bitmap = pygame.image.load(filename)
+        self.bitmap = pygame.image.load("src/zet.png")
         self.bitmap.set_colorkey((0, 0, 0))
         self.tail: List[Cell] = []
         self.length = 3
@@ -66,7 +66,7 @@ class Snake:
     def move(self):
         self.update()
         self.correct()
-        self.tail.insert(0, Cell(self.x, self.y, 'zet.png'))
+        self.tail.insert(0, Cell(self.x, self.y, 'src/zet.png'))
         while len(self.tail) > self.length:
             self.tail.pop()
         count = 0
