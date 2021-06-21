@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import enum
+from typing import List
 
 import pygame
+from sprite import Sprite, Side
 from random import choice
 
 SIZE = 800
@@ -13,39 +14,21 @@ pygame.display.set_caption(caption)
 screen = pygame.Surface((SIZE, SIZE))
 
 
-class Sprite:
-    def __init__(self, x_pos, y_pos, filename):
-        self.x = x_pos
-        self.y = y_pos
-        self.bitmap = pygame.image.load(filename)
-        self.bitmap.set_colorkey((0, 0, 0))
-
-    def render(self):
-        screen.blit(self.bitmap, (self.x, self.y))
-
-
-class Side(enum.Enum):
-    RIGHT = 0
-    DOWN = 1
-    LEFT = 2
-    UP = 3
-
-
 class Snake:
     def __init__(self, x_pos, y_pos, filename):
         self.x = x_pos
         self.y = y_pos
         self.bitmap = pygame.image.load(filename)
         self.bitmap.set_colorkey((0, 0, 0))
-        self.tail = []
-        self.length = 100
+        self.tail: List[Sprite] = []
+        self.length = 3
         self.side = [Side.RIGHT]
 
-    def render(self):
-        screen.blit(self.bitmap, (self.x, self.y))
+    def render(self, surface_to_render):
+        surface_to_render.blit(self.bitmap, (self.x, self.y))
         if self.tail:
             for each_cell in self.tail[1:]:
-                each_cell.render()
+                each_cell.render(surface_to_render=screen)
 
     def turn_to(self, got_side: Side):
         self.side.append(got_side)
@@ -116,16 +99,17 @@ while done:
                 hero.turn_to(Side.UP)
 
     screen.fill((5, 5, 5))
-    zet.render()
+    zet.render(surface_to_render=screen)
     hero.move()
     if hero.check_collision(zet):
         zet.x = choice(coords)
         zet.y = choice(coords)
         hero.len()
+    #  TODO: To be moved into snake itself
     for each in hero.tail[1:]:
         if each.x == hero.x and each.y == hero.y:
             hero.length = each.number
-    hero.render()
+    hero.render(surface_to_render=screen)
     window.blit(screen, (0, 0))
     pygame.display.flip()
     pygame.time.delay(300)
